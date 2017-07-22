@@ -4,11 +4,12 @@ phpstorm_download_mirror: https://download.jetbrains.com/webide/
 phpstorm_plugin_download_mirror: "https://plugins.jetbrains.com/plugin/download?updateId="
 phpstorm_plugins: []
 phpstorm_download_directory: /tmp
-phpstorm_install_directory: "{{ ansible_env['HOME'] }}/Tools"
+phpstorm_user_dir: "~{{ (phpstorm_install_user is defined) | ternary(phpstorm_install_user, ansible_user_id) }}"
+phpstorm_install_directory: "{{ phpstorm_user_dir | expanduser }}/Tools"
 
 # calculated
 
 phpstorm_install_file: "PhpStorm-{{ phpstorm_version }}.tar.gz"
 phpstorm_download_url: "{{ phpstorm_download_mirror }}{{ phpstorm_install_file }}"
 phpstorm_location: "{{ phpstorm_install_directory }}/phpstorm-{{ phpstorm_version }}"
-phpstorm_desktop_file_location: "{{ ansible_env['HOME'] }}/.local/share/applications/phpstorm-{{ phpstorm_version }}.desktop"
+phpstorm_desktop_file_location: "{{ phpstorm_user_dir | expanduser }}/.local/share/applications/phpstorm-{{ phpstorm_version }}.desktop"
