@@ -8,7 +8,7 @@ phpstorm_install_directory: "{{ ansible_env['HOME'] }}/Tools"
 
 # calculated
 
-phpstorm_install_file: "phpstorm-{{ phpstorm_version }}.tar.gz"
+phpstorm_install_file: "PhpStorm-{{ phpstorm_version }}.tar.gz"
 phpstorm_download_url: "{{ phpstorm_download_mirror }}{{ phpstorm_install_file }}"
 phpstorm_location: "{{ phpstorm_install_directory }}/phpstorm-{{ phpstorm_version }}"
 phpstorm_desktop_file_location: "{{ ansible_env['HOME'] }}/.local/share/applications/phpstorm-{{ phpstorm_version }}.desktop"
