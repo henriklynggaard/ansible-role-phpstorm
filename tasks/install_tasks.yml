@@ -21,7 +21,7 @@
   get_url:
     url: "{{ phpstorm_plugin_download_mirror }}{{ item }}"
     dest: "{{ phpstorm_download_directory }}"
-  register: phpstorm_plugins
+  register: phpstorm_plugins_downloaded
   with_items: "{{ phpstorm_plugins }}"
 
 - name: Install PhpStorm
@@ -56,7 +56,7 @@
   unarchive:
     src: "{{ item.dest }}"
     dest: "{{ phpstorm_location }}/plugins"
-  with_items: "{{ phpstorm_plugins.results }}"
+  with_items: "{{ phpstorm_plugins_downloaded.results }}"
 
 - name: Create phpstorm desktop entry
   template:

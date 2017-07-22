@@ -20,16 +20,18 @@ Role Variables
     phpstorm_plugin_download_mirror: "https://plugins.jetbrains.com/plugin/download?updateId="
     phpstorm_plugins: []
     phpstorm_download_directory: /tmp
-    phpstorm_install_directory: "{{ ansible_env['HOME'] }}/Tools"
+    phpstorm_user_dir: "~{{ (phpstorm_install_user is defined) | ternary(phpstorm_install_user, ansible_user_id) }}"
+    phpstorm_install_directory: "{{ phpstorm_user_dir | expanduser }}/Tools"
+    phpstorm_install_user: <undefined>
 
     # calculated
     phpstorm_install_file: "PhpStorm-{{ phpstorm_version }}.tar.gz"
     phpstorm_download_url: "{{ phpstorm_download_mirror }}{{ phpstorm_install_file }}"
     phpstorm_location: "{{ phpstorm_install_directory }}/phpstorm-{{ phpstorm_version }}"
-    phpstorm_desktop_file_location: "{{ ansible_env['HOME'] }}/.local/share/applications/phpstorm-{{ phpstorm_version }}.desktop"
+    phpstorm_desktop_file_location: "{{ phpstorm_user_dir | expanduser  }}/.local/share/applications/phpstorm-{{ phpstorm_version }}.desktop"
 
-phpstorm_plugins is a list of names which get appended to phpstorm_plugin_download_mirror to form a full download  
-
+* phpstorm_plugins is a list of names which get appended to phpstorm_plugin_download_mirror to form a full download  
+* Defining phpstorm_install_user allows the role to install under a different user, however become is required
 
 Dependencies
 ------------
@@ -77,4 +79,5 @@ MIT
 Change log
 ----------
 
+* 1.1: Allow installation under another user
 * 1.0: Initial version
